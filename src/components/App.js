@@ -1,42 +1,29 @@
 import React, { Component, useState } from "react";
 import '../styles/App.css';
 
-class App extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            renderBall: false,
-            posi : 0,
-            ballPosition: { left: "0px" }
-        };
-        this.renderChoice = this.renderBallOrButton.bind(this)
-        this.buttonClickHandler = this.buttonClickHandler.bind(this)
-    };
+function App() {
 
-    buttonClickHandler() {
-   
-   }
-    renderBallOrButton() {
-		if (this.state.renderBall) {
-		    return <div className="ball" style={this.state.ballPosition}></div>
-		} else {
-		    return <button onClick={this.buttonClickHandler} >Start</button>
-		}
+    const [data, setData]= useState(false);
+    const [style, setStyle]= useState(0);
+    
+    document.addEventListener('keyup', (e)=>{
+      if(e.key=='ArrowRight'){
+        setStyle(style+5);
+      }
+    })
+    
+      return (
+        <div className="App"> 
+          <div className="playground">
+        {!data ?<button className="start" onClick={()=>
+         {   setData(true)
+          }
+          }>click</button> :""}
+            {data? <div className="ball" style={{marginLeft:style+"px"}}></div> :""}
+          </div>
+        </div>
+      );
     }
-
-    // bind ArrowRight keydown event
-    componentDidMount() {
-      
-    }
-
-    render() {
-        return (
-            <div className="playground">
-                {this.renderBallOrButton()}
-            </div>
-        )
-    }
-}
-
+    
 
 export default App;
